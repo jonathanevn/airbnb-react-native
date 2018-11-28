@@ -13,13 +13,16 @@ import { ScrollView } from "react-native-gesture-handler";
 export default class SignUp extends React.Component {
   state = {
     email: "",
-    emailError: "",
+    emailError: false,
     password: "",
-    passwordError: "",
-    errorAuth: false,
+    passwordError: false,
+    errorInput: "",
     username: "",
+    usernameError: false,
     name: "",
-    description: ""
+    nameError: false,
+    description: "",
+    descriptionError: false
   };
   static navigationOptions = {
     title: "Sign Up",
@@ -30,6 +33,7 @@ export default class SignUp extends React.Component {
   };
 
   handleSubmit = () => {
+    const { navigate } = this.props.navigation;
     axios
       .post("https://airbnb-api.now.sh/api/user/sign_up", {
         email: this.state.email,
@@ -40,7 +44,33 @@ export default class SignUp extends React.Component {
           description: this.state.description
         }
       })
-      .then(response => {});
+      .then(response => {
+        if (this.state.email === "") {
+          this.setState({ emailError: true });
+          return null;
+        }
+        if (this.state.password === "") {
+          this.setState({ passwordError: true });
+          return null;
+        }
+        if (this.state.username === "") {
+          this.setState({ usernameError: true });
+          return null;
+        }
+        if (this.state.name === "") {
+          this.setState({ nameError: true });
+          return null;
+        }
+        if (this.state.description === "") {
+          this.setState({ descriptionError: true });
+          return null;
+        } else {
+          navigate("Profile", { name: response.data.account.username });
+        }
+      })
+      .catch(error => {
+        this.setState({ errorInput: true });
+      });
   };
 
   render() {
@@ -50,17 +80,19 @@ export default class SignUp extends React.Component {
         <KeyboardAvoidingView
           style={styles.container}
           behavior="padding"
-          keyboardVerticalOffset="0"
+          keyboardVerticalOffset={100}
           enabled
         >
           <Text numberOflines="2" style={styles.accountTitle}>
-            Create your account
+            Create{"\n"}your account
           </Text>
           <TextInput
             keyboardType="default"
             autoCapitalize="none"
             blurOnSubmit={true}
-            style={styles.input}
+            style={
+              this.state.emailError === true ? styles.inputError : styles.input
+            }
             onChangeText={email => this.setState({ email })}
             placeholder={"exemple@email.com"}
             placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
@@ -72,7 +104,11 @@ export default class SignUp extends React.Component {
             secureTextEntry={true}
             autoCapitalize="none"
             blurOnSubmit={true}
-            style={styles.input}
+            style={
+              this.state.passwordError === true
+                ? styles.inputError
+                : styles.input
+            }
             onChangeText={password => this.setState({ password })}
             placeholder={"Password"}
             placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
@@ -80,10 +116,13 @@ export default class SignUp extends React.Component {
           />
           <TextInput
             keyboardType="default"
-            secureTextEntry={true}
             autoCapitalize="none"
             blurOnSubmit={true}
-            style={styles.input}
+            style={
+              this.state.usernameError === true
+                ? styles.inputError
+                : styles.input
+            }
             onChangeText={username => this.setState({ username })}
             placeholder={"Username"}
             placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
@@ -91,10 +130,11 @@ export default class SignUp extends React.Component {
           />
           <TextInput
             keyboardType="default"
-            secureTextEntry={true}
             autoCapitalize="none"
             blurOnSubmit={true}
-            style={styles.input}
+            style={
+              this.state.nameError === true ? styles.inputError : styles.input
+            }
             onChangeText={name => this.setState({ name })}
             placeholder={"Name"}
             placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
@@ -102,18 +142,26 @@ export default class SignUp extends React.Component {
           />
           <TextInput
             keyboardType="default"
-            secureTextEntry={true}
             autoCapitalize="none"
             blurOnSubmit={true}
-            style={styles.input}
+            style={
+              this.state.descriptionError === true
+                ? styles.inputError
+                : styles.input
+            }
             onChangeText={description => this.setState({ description })}
             placeholder={"Enter a description"}
             placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
             value={this.state.description}
           />
+          <Text style={styles.errorAuth}>
+            {this.state.errorInput == true
+              ? "Merci de remplir tous les champs"
+              : ""}
+          </Text>
           <TouchableOpacity
             style={styles.signInButton}
-            onPress={() => navigate("Rooms")}
+            onPress={() => this.handleSubmit()}
           >
             <Text style={styles.textSignUp}>Sign Up</Text>
           </TouchableOpacity>
@@ -137,15 +185,27 @@ const styles = StyleSheet.create({
   accountTitle: {
     fontSize: 35,
     color: "white",
-    fontWeight: "600"
+    fontWeight: "600",
+    justifyContent: "flex-start",
+    width: "70%"
   },
 
   input: {
     height: 50,
-    width: 280,
+    width: "70%",
     borderColor: "white",
     borderBottomWidth: 1,
     color: "white",
+    fontSize: 15,
+    marginTop: 20
+  },
+
+  inputError: {
+    height: 50,
+    width: "70%",
+    borderColor: "red",
+    borderBottomWidth: 10,
+    color: "red",
     fontSize: 15,
     marginTop: 20
   },
