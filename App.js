@@ -28,7 +28,7 @@ const App = createStackNavigator({
   Main: { screen: MainScreen, navigationOptions: { header: null } },
   Profile: { screen: ProfileScreen },
   SignUp: { screen: SignUp },
-  Rooms: { screen: Rooms }
+  Rooms: { screen: Rooms, navigationOptions: { header: null } }
 });
 
 export default createAppContainer(App);

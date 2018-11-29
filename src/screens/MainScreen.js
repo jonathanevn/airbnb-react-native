@@ -28,7 +28,7 @@ export default class MainScreen extends React.Component {
       })
       .then(response => {
         if (response.data.token) {
-          navigate("Profile", { name: response.data.account.username });
+          navigate("Rooms");
         }
       })
       .catch(error => {
@@ -85,6 +85,10 @@ export default class MainScreen extends React.Component {
           onPress={() => navigate("SignUp")}
         >
           <Text style={styles.textSignUp}>Sign In</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigate("Rooms")}>
+          <Text style={styles.textSignUp}>Voir les annonces</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );

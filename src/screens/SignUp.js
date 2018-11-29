@@ -2,7 +2,6 @@ import React from "react";
 import {
   TouchableOpacity,
   Text,
-  View,
   StyleSheet,
   TextInput,
   KeyboardAvoidingView
@@ -72,7 +71,6 @@ export default class SignUp extends React.Component {
   };
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <KeyboardAvoidingView
