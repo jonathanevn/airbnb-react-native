@@ -134,7 +134,7 @@ export default class SignUp extends React.Component {
             onChangeText={name => this.setState({ name })}
             placeholder={"Name"}
             placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
-            value={this.state.usernamename}
+            value={this.state.name}
           />
           <TextInput
             keyboardType="default"

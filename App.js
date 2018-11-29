@@ -13,6 +13,7 @@ import MainScreen from "./src/screens/MainScreen";
 import ProfileScreen from "./src/screens/Profile";
 import SignUp from "./src/screens/SignUp";
 import Rooms from "./src/screens/Rooms";
+import Room from "./src/screens/Room";
 
 class HomeScreen extends React.Component {
   render() {
@@ -28,7 +29,8 @@ const App = createStackNavigator({
   Main: { screen: MainScreen, navigationOptions: { header: null } },
   Profile: { screen: ProfileScreen },
   SignUp: { screen: SignUp },
-  Rooms: { screen: Rooms, navigationOptions: { header: null } }
+  Rooms: { screen: Rooms, navigationOptions: { header: null } },
+  Room: { screen: Room }
 });
 
 export default createAppContainer(App);

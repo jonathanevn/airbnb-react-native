@@ -1,22 +1,38 @@
 import React from "react";
-import { StyleSheet, Text, FlatList, Image, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  FlatList,
+  Image,
+  View,
+  TouchableOpacity
+} from "react-native";
 import axios from "axios";
 import StarRating from "react-native-star-rating";
 import { ScrollView } from "react-native-gesture-handler";
 
 class Rooms extends React.Component {
   state = {
-    rooms: []
+    rooms: [],
+    city: ""
   };
 
   render() {
     return (
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <Text style={styles.screenTitle}>Logements Airbnb à Paris</Text>
+        <Text style={styles.screenTitle}>
+          Logements Airbnb à {this.state.city.name}
+        </Text>
         <FlatList
           data={this.state.rooms}
+          keyExtractor={item => item._id}
           renderItem={({ item }) => (
-            <View style={styles.container}>
+            <TouchableOpacity
+              style={styles.container}
+              onPress={() => {
+                this.props.navigation.navigate("Room", { id: item._id });
+              }}
+            >
               <Image
                 source={{ uri: item.photos[0] }}
                 style={styles.flatImage}
@@ -34,7 +50,7 @@ class Rooms extends React.Component {
                     <StarRating
                       disabled={false}
                       maxStars={5}
-                      starSize={20}
+                      starSize={13}
                       fullStarColor="#FFB400"
                       emptyStarColor="#FFB400"
                       rating={item.ratingValue}
@@ -49,7 +65,7 @@ class Rooms extends React.Component {
                   style={styles.avatarImage}
                 />
               </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
       </ScrollView>
@@ -61,7 +77,10 @@ class Rooms extends React.Component {
       .get("https://airbnb-api.now.sh/api/room?city=paris")
       .then(response => {
         if (response.data) {
-          this.setState({ rooms: response.data.rooms });
+          this.setState({
+            rooms: response.data.rooms,
+            city: response.data.city
+          });
         }
       })
       .catch(error => {
@@ -116,7 +135,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 16,
+    fontSize: 18,
     color: "#262626",
     fontWeight: "600",
     marginBottom: 5
