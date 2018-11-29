@@ -47,23 +47,21 @@ export default class SignUp extends React.Component {
       .then(response => {
         if (this.state.email === "") {
           this.setState({ emailError: true });
-          return null;
         }
         if (this.state.password === "") {
           this.setState({ passwordError: true });
-          return null;
         }
+
         if (this.state.username === "") {
           this.setState({ usernameError: true });
-          return null;
         }
+
         if (this.state.name === "") {
           this.setState({ nameError: true });
-          return null;
         }
+
         if (this.state.description === "") {
           this.setState({ descriptionError: true });
-          return null;
         } else {
           navigate("Profile", { name: response.data.account.username });
         }
@@ -144,15 +142,15 @@ export default class SignUp extends React.Component {
             keyboardType="default"
             autoCapitalize="none"
             blurOnSubmit={true}
-            style={
-              this.state.descriptionError === true
-                ? styles.inputError
-                : styles.input
-            }
             onChangeText={description => this.setState({ description })}
             placeholder={"Enter a description"}
             placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
             value={this.state.description}
+            style={
+              this.state.descriptionError === true
+                ? styles.inputError
+                : styles.inputDescription
+            }
           />
           <Text style={styles.errorAuth}>
             {this.state.errorInput == true
@@ -208,6 +206,17 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 15,
     marginTop: 20
+  },
+
+  inputDescription: {
+    height: 90,
+    width: "70%",
+    borderColor: "white",
+    color: "white",
+    fontSize: 15,
+    marginTop: 20,
+    borderBottomWidth: 1,
+    paddingBottom: 0
   },
 
   errorAuth: {

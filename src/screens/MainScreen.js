@@ -5,6 +5,7 @@ import {
   Text,
   View,
   StyleSheet,
+  Image,
   TextInput,
   KeyboardAvoidingView
 } from "react-native";
@@ -41,14 +42,18 @@ export default class MainScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <Text style={styles.welcome}>Welcome</Text>
+        <View style={styles.logoTitleView}>
+          <Image source={require("../images/logo.png")} />
+          <Text style={styles.welcome}>Welcome</Text>
+        </View>
+
         <TextInput
           keyboardType="default"
           autoCapitalize="none"
           blurOnSubmit={true}
           style={styles.input}
           onChangeText={email => this.setState({ email })}
-          placeholder={"exemple@email.com"}
+          placeholder={"example@email.com"}
           placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
           value={this.state.email}
         />
@@ -93,10 +98,16 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
 
+  logoTitleView: {
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
   welcome: {
     fontSize: 35,
     color: "white",
-    fontWeight: "600"
+    fontWeight: "600",
+    marginTop: 30
   },
 
   input: {
@@ -113,7 +124,8 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 10,
     color: "rgba(255, 255, 255, 0.7)",
-    justifyContent: "flex-end"
+    textAlign: "right",
+    width: 280
   },
 
   CTAbutton: {
