@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
 
   screenTitle: {
-    fontSize: 25,
+    fontSize: 28,
     color: "#262626",
     fontWeight: "bold",
     marginBottom: 20,

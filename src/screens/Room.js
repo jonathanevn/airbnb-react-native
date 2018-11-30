@@ -127,15 +127,16 @@ const styles = StyleSheet.create({
   },
 
   price: {
-    fontWeight: "bold",
+    fontWeight: "700",
     color: "#262626",
+    fontFamily: "Karla",
     paddingHorizontal: 20,
     paddingVertical: 10,
     fontSize: 15
   },
 
   priceNight: {
-    fontWeight: "400",
+    fontFamily: "Karla",
     color: "#262626",
     fontSize: 12
   },
@@ -145,11 +146,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     color: "#262626",
-    paddingVertical: 30
+    paddingVertical: 30,
+    fontFamily: "Karla"
   },
 
   username: {
-    fontWeight: "600"
+    fontWeight: "700",
+    fontFamily: "Karla"
   },
 
   avatarImage: {
@@ -163,8 +166,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     color: "#262626",
-    fontWeight: "600",
-    marginBottom: 5
+    fontWeight: "700",
+    marginBottom: 5,
+    fontFamily: "Karla"
   },
 
   starRating: {
@@ -174,11 +178,14 @@ const styles = StyleSheet.create({
 
   rating: {
     color: "#C2C2C2",
-    paddingLeft: 10
+    paddingLeft: 10,
+    fontFamily: "Karla"
   },
 
   description: {
-    color: "#262626"
+    color: "#262626",
+    fontFamily: "Karla",
+    fontSize: 15
   },
 
   mapSection: {
@@ -187,7 +194,6 @@ const styles = StyleSheet.create({
 
   map: {
     flex: 1
-    /*   height: 400 */
   },
 
   button: {
@@ -213,7 +219,8 @@ const styles = StyleSheet.create({
   buttonText: {
     paddingVertical: 15,
     color: "white",
-    fontWeight: "600"
+    fontWeight: "700",
+    fontFamily: "Karla"
   }
 });
 

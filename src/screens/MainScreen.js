@@ -111,8 +111,9 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 35,
     color: "white",
-    fontWeight: "600",
-    marginTop: 30
+    fontWeight: "700",
+    marginTop: 30,
+    fontFamily: "Karla"
   },
 
   input: {
@@ -122,7 +123,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     color: "white",
     fontSize: 15,
-    marginTop: 20
+    marginTop: 20,
+    fontFamily: "Karla"
   },
 
   forgottenPassword: {
@@ -130,7 +132,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: "rgba(255, 255, 255, 0.7)",
     textAlign: "right",
-    width: 280
+    width: 280,
+    fontFamily: "Karla"
   },
 
   CTAbutton: {
@@ -145,7 +148,8 @@ const styles = StyleSheet.create({
 
   textLogIn: {
     color: "#FE5B5E",
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: "Karla"
   },
 
   errorAuth: {
@@ -167,12 +171,14 @@ const styles = StyleSheet.create({
 
   textSignUp: {
     color: "white",
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: "Karla"
   },
 
   textSkip: {
     color: "white",
     fontSize: 12,
-    marginTop: 40
+    marginTop: 40,
+    fontFamily: "Karla"
   }
 });

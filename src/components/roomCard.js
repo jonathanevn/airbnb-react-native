@@ -71,16 +71,19 @@ const styles = StyleSheet.create({
   },
 
   price: {
-    fontWeight: "bold",
+    fontWeight: "700",
+    fontSize: 15,
     color: "#262626",
-    padding: 10
+    padding: 10,
+    fontFamily: "Karla"
   },
 
   title: {
-    fontSize: 18,
+    fontSize: 20,
     color: "#262626",
-    fontWeight: "600",
-    marginBottom: 5
+    fontWeight: "700",
+    marginBottom: 5,
+    fontFamily: "Karla"
   },
 
   avatarImage: {
@@ -107,7 +110,8 @@ const styles = StyleSheet.create({
 
   rating: {
     color: "#C2C2C2",
-    paddingLeft: 10
+    paddingLeft: 10,
+    fontFamily: "Karla"
   }
 });
 
