@@ -28,7 +28,7 @@ export default class MainScreen extends React.Component {
       })
       .then(response => {
         if (response.data.token) {
-          navigate("Rooms");
+          navigate("Profile");
         }
       })
       .catch(error => {
@@ -74,6 +74,7 @@ export default class MainScreen extends React.Component {
             ? "Email ou mot de passe invalide"
             : null}
         </Text>
+
         <TouchableOpacity
           style={styles.CTAbutton}
           onPress={() => this.handleLogIn()}
@@ -88,7 +89,7 @@ export default class MainScreen extends React.Component {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigate("Rooms")}>
-          <Text style={styles.textSignUp}>Voir les annonces</Text>
+          <Text style={styles.textSkip}>Skip →</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );
@@ -167,5 +168,11 @@ const styles = StyleSheet.create({
   textSignUp: {
     color: "white",
     fontSize: 20
+  },
+
+  textSkip: {
+    color: "white",
+    fontSize: 12,
+    marginTop: 40
   }
 });

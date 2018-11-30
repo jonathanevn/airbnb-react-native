@@ -1,33 +1,37 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import axios from "axios";
+import RoomCard from "../components/RoomCard";
 
 class Room extends React.Component {
   state = {
-    room: {}
+    rooms: {}
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.room.title}</Text>
-        <Text>{this.state.room.description}</Text>
+        <RoomCard />
+        <Text>{this.state.rooms.description}</Text>
+        {/*     <Image style={styles.flatImage} source={{ uri: rooms.photos[0] }} /> */}
+        {/*   <Image
+          style={styles.avatarImage}
+          source={{ uri: rooms.user.account.photos[0] }}
+        /> */}
+
+        {/* <Text>{rooms.user.account.username}</Text> */}
       </View>
     );
   }
 
   componentDidMount() {
-    const { navigation } = this.props;
-    const itemId = this.props.navigation.state.params.id;
-    console.log("itemId", itemId);
+    const id = this.props.navigation.state.params.id;
     axios
-      .get("https://airbnb-api.now.sh/api/room/" + itemId)
+      .get("https://airbnb-api.now.sh/api/room/" + id)
       .then(response => {
-        console.log("response.data", response.data);
         if (response.data) {
-          console.log("response.data", response.data);
           this.setState({
-            room: response.data
+            rooms: response.data
           });
         }
       })
@@ -43,6 +47,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   }
+
+  /*   flatImage: {
+    height: 200,
+    width: 320,
+    flex: 1,
+    position: "relative",
+    borderRadius: 4
+  },
+
+  avatarImage: {
+    height: 40,
+    width: 40,
+    borderRadius: 40 / 2,
+    marginLeft: 20
+  } */
 });
 
 export default Room;
