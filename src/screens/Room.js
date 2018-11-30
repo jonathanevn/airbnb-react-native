@@ -1,67 +1,67 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, Image, View, ScrollView } from "react-native";
 import axios from "axios";
 import RoomCard from "../components/RoomCard";
 
 class Room extends React.Component {
-  state = {
-    rooms: {}
-  };
-
   render() {
+    const { params } = this.props.navigation.state;
     return (
-      <View style={styles.container}>
-        <RoomCard />
-        <Text>{this.state.rooms.description}</Text>
-        {/*     <Image style={styles.flatImage} source={{ uri: rooms.photos[0] }} /> */}
-        {/*   <Image
-          style={styles.avatarImage}
-          source={{ uri: rooms.user.account.photos[0] }}
-        /> */}
-
-        {/* <Text>{rooms.user.account.username}</Text> */}
-      </View>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <Image source={{ uri: params.photos[0] }} style={styles.flatImage} />
+        {/*  <View style={styles.priceTag}> */}
+        <Text style={styles.price}>{params.price}€</Text>
+        {/* </View> */}
+        <View style={styles.body}>
+          <RoomCard
+            title={params.title}
+            reviews={params.reviews}
+            ratingValue={params.ratingValue}
+            userAvatar={params.user.account.photos[0]}
+            hidePrice={true}
+          />
+        </View>
+        <Text>{params.description}</Text>
+      </ScrollView>
     );
   }
-
-  componentDidMount() {
-    const id = this.props.navigation.state.params.id;
-    axios
-      .get("https://airbnb-api.now.sh/api/room/" + id)
-      .then(response => {
-        if (response.data) {
-          this.setState({
-            rooms: response.data
-          });
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
 }
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  }
+  contentContainer: {
+    flex: 1
+  },
 
-  /*   flatImage: {
-    height: 200,
-    width: 320,
-    flex: 1,
+  body: {
+    margin: 20
+  },
+
+  flatImage: {
+    height: 250,
+    width: "100%",
     position: "relative",
     borderRadius: 4
   },
 
-  avatarImage: {
+  /*   priceTag: {
+    position: "absolute",
+    top: 150,
+    left: 15,
+    backgroundColor: "rgba(255,255,255, 0.9)",
+    borderRadius: 4
+  },
+ */
+  price: {
+    fontWeight: "bold",
+    color: "#262626",
+    padding: 10
+  }
+
+  /*   avatarImage: {
     height: 40,
     width: 40,
     borderRadius: 40 / 2,
     marginLeft: 20
-  } */
+  }  */
 });
 
 export default Room;

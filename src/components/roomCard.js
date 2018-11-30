@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, Image, View } from "react-native";
 import PropTypes from "prop-types";
 import StarRating from "react-native-star-rating";
 
@@ -11,22 +11,19 @@ class RoomCard extends React.Component {
     ratingValue: PropTypes.number,
     userAvatar: PropTypes.string,
     reviews: PropTypes.number,
-    itemId: PropTypes.string
+    itemId: PropTypes.string,
+    hidePrice: PropTypes.bool
   };
 
   render() {
     return (
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() => {
-          this.props.navigation.navigate("Room", { id: this.props.itemId });
-        }}
-      >
+      <View>
         <Image source={{ uri: this.props.photo }} style={styles.flatImage} />
         <View style={styles.priceTag}>
-          <Text style={styles.price}>{this.props.price}€</Text>
+          {this.props.hidePrice === true ? null : (
+            <Text style={styles.price}>{this.props.price}€</Text>
+          )}
         </View>
-
         <View style={styles.flatInformations}>
           <View style={styles.flatTitleReview}>
             <Text numberOfLines={1} style={styles.title}>
@@ -51,16 +48,12 @@ class RoomCard extends React.Component {
             style={styles.avatarImage}
           />
         </View>
-      </TouchableOpacity>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-
   flatImage: {
     height: 200,
     width: 320,

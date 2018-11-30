@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, FlatList } from "react-native";
+import { StyleSheet, Text, FlatList, TouchableOpacity } from "react-native";
 import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
 import RoomCard from "../components/RoomCard";
@@ -20,16 +20,21 @@ class Rooms extends React.Component {
           data={this.state.rooms}
           keyExtractor={item => item._id}
           renderItem={({ item }) => (
-            <RoomCard
-              itemId={item._id}
-              photo={item.photos[0]}
-              title={item.title}
-              price={item.price}
-              ratingValue={item.ratingValue}
-              reviews={item.reviews}
-              userAvatar={item.user.account.photos[0]}
-              navigation={this.props.navigation}
-            />
+            <TouchableOpacity
+              style={styles.container}
+              onPress={() => {
+                this.props.navigation.navigate("Room", item);
+              }}
+            >
+              <RoomCard
+                photo={item.photos[0]}
+                title={item.title}
+                price={item.price}
+                ratingValue={item.ratingValue}
+                reviews={item.reviews}
+                userAvatar={item.user.account.photos[0]}
+              />
+            </TouchableOpacity>
           )}
         />
       </ScrollView>
@@ -59,6 +64,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     margin: 25
+  },
+
+  container: {
+    flex: 1
   },
 
   screenTitle: {
