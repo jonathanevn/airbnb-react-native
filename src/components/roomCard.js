@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
 
   price: {
     fontWeight: "700",
-    fontSize: 15,
+    fontSize: 18,
     color: "#262626",
     padding: 10,
     fontFamily: "Karla"
