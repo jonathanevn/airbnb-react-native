@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, Image, View, ScrollView } from "react-native";
-import axios from "axios";
 import RoomCard from "../components/RoomCard";
+import Icon from "react-native-vector-icons/FontAwesome";
+import MapView from "react-native-maps";
 
 class Room extends React.Component {
   render() {
@@ -9,9 +10,11 @@ class Room extends React.Component {
     return (
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <Image source={{ uri: params.photos[0] }} style={styles.flatImage} />
-        {/*  <View style={styles.priceTag}> */}
-        <Text style={styles.price}>{params.price}€</Text>
-        {/* </View> */}
+
+        <View style={styles.priceTag}>
+          <Text style={styles.price}>{params.price}€</Text>
+        </View>
+
         <View style={styles.body}>
           <RoomCard
             title={params.title}
@@ -20,8 +23,29 @@ class Room extends React.Component {
             userAvatar={params.user.account.photos[0]}
             hidePrice={true}
           />
+          <Text style={styles.description} numberOfLines={4}>
+            {params.description}
+          </Text>
         </View>
-        <Text>{params.description}</Text>
+        <MapView
+          style={{ flex: 1 }}
+          initialRegion={{
+            latitude: params.loc[1],
+            longitude: params.loc[0],
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01
+          }}
+        >
+          <MapView.Marker
+            coordinate={{
+              latitude: params.loc[1],
+              longitude: params.loc[0]
+            }}
+            title={params.title}
+            description={params.city.name}
+            image={require("../images/location-pointer.png")}
+          />
+        </MapView>
       </ScrollView>
     );
   }
@@ -32,7 +56,9 @@ const styles = StyleSheet.create({
   },
 
   body: {
-    margin: 20
+    marginHorizontal: 20,
+    marginTop: 10,
+    marginBottom: 20
   },
 
   flatImage: {
@@ -42,26 +68,23 @@ const styles = StyleSheet.create({
     borderRadius: 4
   },
 
-  /*   priceTag: {
+  priceTag: {
     position: "absolute",
-    top: 150,
+    top: 200,
     left: 15,
     backgroundColor: "rgba(255,255,255, 0.9)",
     borderRadius: 4
   },
- */
+
   price: {
     fontWeight: "bold",
     color: "#262626",
     padding: 10
-  }
+  },
 
-  /*   avatarImage: {
-    height: 40,
-    width: 40,
-    borderRadius: 40 / 2,
-    marginLeft: 20
-  }  */
+  description: {
+    color: "#262626"
+  }
 });
 
 export default Room;
