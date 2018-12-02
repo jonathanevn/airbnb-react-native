@@ -28,7 +28,8 @@ export default class MainScreen extends React.Component {
       })
       .then(response => {
         if (response.data.token) {
-          navigate("Profile");
+          console.log("response.data", response.data);
+          navigate("Profile", { account: response.data.account });
         }
       })
       .catch(error => {

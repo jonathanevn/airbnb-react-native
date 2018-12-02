@@ -14,7 +14,6 @@ import ProfileScreen from "./src/screens/Profile";
 import SignUp from "./src/screens/SignUp";
 import Rooms from "./src/screens/Rooms";
 import Room from "./src/screens/Room";
-import RoomCard from "./src/components/RoomCard";
 
 class HomeScreen extends React.Component {
   render() {
