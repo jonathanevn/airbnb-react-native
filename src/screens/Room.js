@@ -7,9 +7,8 @@ import {
   ScrollView,
   TouchableOpacity
 } from "react-native";
-import RoomCard from "../components/RoomCard";
 import Icon from "react-native-vector-icons/FontAwesome";
-import MapView from "react-native-maps";
+import Map from "../components/Map";
 import StarRating from "react-native-star-rating";
 
 class Room extends React.Component {
@@ -22,7 +21,33 @@ class Room extends React.Component {
     return (
       <View style={styles.topContainer}>
         <ScrollView style={styles.contentContainer}>
-          <Image source={{ uri: params.photos[0] }} style={styles.flatImage} />
+          <View style={{ height: 250 }}>
+            <ScrollView
+              horizontal={true}
+              pagingEnabled={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {params.photos.map((image, index) => {
+                console.log("image, index", image, index);
+                return (
+                  <View
+                    style={{
+                      height: 250,
+                      width: "100%",
+                      backgroundColor: "yellow",
+                      borderColor: "green"
+                    }}
+                  >
+                    <Image
+                      key={index}
+                      source={{ uri: image }}
+                      style={styles.flatImage}
+                    />
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </View>
 
           <View style={styles.priceTag}>
             <Text style={styles.price}>
@@ -67,25 +92,12 @@ class Room extends React.Component {
             </Text>
           </View>
           <View style={styles.mapSection}>
-            <MapView
-              style={styles.map}
-              initialRegion={{
-                latitude: params.loc[1],
-                longitude: params.loc[0],
-                latitudeDelta: 0.009,
-                longitudeDelta: 0.009
-              }}
-            >
-              <MapView.Marker
-                coordinate={{
-                  latitude: params.loc[1],
-                  longitude: params.loc[0]
-                }}
-                title={params.title}
-                description={params.city.name}
-                image={require("../images/location-pointer.png")}
-              />
-            </MapView>
+            <Map
+              latitude={params.loc[1]}
+              longitude={params.loc[0]}
+              title={params.title}
+              description={params.city.name}
+            />
           </View>
         </ScrollView>
         <View style={styles.buttonBar}>
@@ -115,7 +127,9 @@ const styles = StyleSheet.create({
   flatImage: {
     height: 250,
     width: "100%",
-    position: "relative"
+    position: "relative",
+    backgroundColor: "yellow",
+    borderColor: "green"
   },
 
   priceTag: {
@@ -190,10 +204,6 @@ const styles = StyleSheet.create({
 
   mapSection: {
     height: 400
-  },
-
-  map: {
-    flex: 1
   },
 
   button: {
