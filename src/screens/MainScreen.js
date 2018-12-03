@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
   TextInput,
+  AsyncStorage,
   KeyboardAvoidingView
 } from "react-native";
 
@@ -16,7 +17,8 @@ export default class MainScreen extends React.Component {
     emailError: "",
     password: "",
     passwordError: "",
-    errorAuth: false
+    errorAuth: false,
+    isAuthenticated: false
   };
 
   handleLogIn = () => {
@@ -28,8 +30,10 @@ export default class MainScreen extends React.Component {
       })
       .then(response => {
         if (response.data.token) {
-          console.log("response.data", response.data);
-          navigate("Profile", { account: response.data.account });
+          AsyncStorage.setItem("token", response.data.token).then(() => {
+            this.setState({ isAuthenticated: true });
+            navigate("Profile", { account: response.data.account });
+          });
         }
       })
       .catch(error => {
@@ -95,7 +99,18 @@ export default class MainScreen extends React.Component {
       </KeyboardAvoidingView>
     );
   }
+
+  componentDidMount() {
+    AsyncStorage.getItem("token").then(value => {
+      if (value) {
+        this.setState({
+          isAuthenticated: true
+        });
+      }
+    });
+  }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

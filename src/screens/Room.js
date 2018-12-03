@@ -5,6 +5,7 @@ import {
   Image,
   View,
   ScrollView,
+  Dimensions,
   TouchableOpacity
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -18,6 +19,8 @@ class Room extends React.Component {
 
   render() {
     const { params } = this.props.navigation.state;
+    const width = Dimensions.get("window").width;
+    console.log("width", width);
     return (
       <View style={styles.topContainer}>
         <ScrollView style={styles.contentContainer}>
@@ -33,9 +36,7 @@ class Room extends React.Component {
                   <View
                     style={{
                       height: 250,
-                      width: "100%",
-                      backgroundColor: "yellow",
-                      borderColor: "green"
+                      width: width
                     }}
                   >
                     <Image
@@ -126,10 +127,7 @@ const styles = StyleSheet.create({
 
   flatImage: {
     height: 250,
-    width: "100%",
-    position: "relative",
-    backgroundColor: "yellow",
-    borderColor: "green"
+    position: "relative"
   },
 
   priceTag: {
